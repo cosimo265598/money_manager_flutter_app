@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money_manger_app/screens/StatScreen.dart';
 import 'package:money_manger_app/screens/historyscreen.dart';
 import 'package:money_manger_app/widgets/AddTransaction.dart';
+import 'package:money_manger_app/widgets/Settings.dart';
 import 'package:money_manger_app/widgets/Statistics.dart';
 import 'package:money_manger_app/widgets/Statisticspage.dart';
 import 'package:money_manger_app/widgets/addFlow.dart';
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     History(),
     AddTransaction(), // add transaction pages
     Statisticspage(),// statistics
-    Container(),// settings
+    Settings(),// settings
   ];
 
   @override
@@ -49,8 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           //indicatorColor: Colors.lightBlue[200],
+
         ),
         child: NavigationBar(
+
           backgroundColor: Colors.white,
           animationDuration: Duration(milliseconds: 900),
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
@@ -70,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: 'Home'),
             NavigationDestination(
                 icon: Icon(
-                  Icons.history_outlined,
+                  Icons.history_rounded,
                   size: 30,
                 ),
                 label: 'History'),

@@ -21,8 +21,6 @@ class _HomeState extends State<Home> {
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        //StatsCards(),
-        //OverallBalance(),
         CreditCard(),
         SizedBox(height: 10),
         MiddlebarHome(),

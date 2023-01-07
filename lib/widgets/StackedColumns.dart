@@ -50,12 +50,14 @@ class _StackedChartState extends State<StackedChart> {
                   StackedColumnSeries<ChartData, String>(
                       groupName: 'Income',
                       dataSource: chartData,
+                      dataLabelSettings: DataLabelSettings(isVisible: true,showCumulativeValues: true),
                       xValueMapper: (ChartData data, _) => data.x,
                       yValueMapper: (ChartData data, _) => data.y1
                   ),
                   StackedColumnSeries<ChartData, String>(
                       groupName: 'Expense',
                       dataSource: chartData,
+                      dataLabelSettings: DataLabelSettings(isVisible: true,showCumulativeValues: true),
                       xValueMapper: (ChartData data, _) => data.x,
                       yValueMapper: (ChartData data, _) => data.y2
                   ),

@@ -16,8 +16,8 @@ class _RecentFlowsState extends State<RecentFlows> {
       duration: Duration(milliseconds: 10),
       child: Expanded(child: Container(
         margin: EdgeInsets.only(top: 0),
-        width: MediaQuery.of(context).size.width * 1,
-        height: MediaQuery.of(context).size.height * 1,
+        //width: MediaQuery.of(context).size.width * 1,
+        //height: MediaQuery.of(context).size.height * 1,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(

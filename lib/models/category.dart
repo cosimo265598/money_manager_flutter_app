@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Category {
-  final String path_id;
-  final double amount_in;
-  final double amount_out;
+  final String pathImage;
+  final String visibleName;
 
-  Category(this.path_id, this.amount_in, this.amount_out);
+  Category(this.pathImage, this.visibleName);
 }
 
+ 
 /*final Category test = Category("prova", -1.0, DateTime.tryParse("2022-01-27 13:27:00")!, "Pranzo", false, "id1");
 final Category test2 = Category("prova2", -15.0, DateTime.tryParse("2022-12-22 13:27:00")!, "Pranzo", false, "id2");
 final Category test3 = Category("prova3", 1.0, DateTime.tryParse("2022-12-21 13:27:00")!, "Pranzo", true, "id3");

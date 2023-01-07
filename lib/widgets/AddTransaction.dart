@@ -36,8 +36,8 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   Widget build(BuildContext context) {
     BorderRadiusGeometry radius = BorderRadius.only(
-      topLeft: Radius.circular(24.0),
-      topRight: Radius.circular(24.0),
+      topLeft: Radius.circular(50.0),
+      topRight: Radius.circular(50.0),
     );
 
     return SingleChildScrollView(
@@ -178,7 +178,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                     ? selectedColor
                                     : unselectedColor,
                                 borderRadius: BorderRadius.circular(15)),
-                            child: InkWell(
+                            child: GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     selectedIndex = index;
@@ -188,9 +188,11 @@ class _AddTransactionState extends State<AddTransaction> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      child: Image(
-                                        image: AssetImage(items[index]),
-                                        width: MediaQuery.of(context).size.width * (index==selectedIndex ? 0.13 : 0.1),
+                                      child: CircleAvatar(
+                                        backgroundImage: AssetImage(items[index]),
+                                        radius: index==selectedIndex ? 30:20,
+                                        foregroundColor: Colors.transparent,
+                                        //width: MediaQuery.of(context).size.width * (index==selectedIndex ? 0.13 : 0.1),
                                       ),
                                     ),
                                     Container(

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_manger_app/models/moneyFlow.dart';
+
+import '../boxes.dart';
 
 class ViewFlows extends StatefulWidget {
   const ViewFlows({super.key});
@@ -9,83 +13,64 @@ class ViewFlows extends StatefulWidget {
 }
 
 class _ViewFlowsState extends State<ViewFlows> {
+  int MAX_RECENT=10;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 1,
-      child: ListView.builder(
-        itemCount: listFlows.length,
-        itemBuilder: (BuildContext context, index) {
-          final selectedElement = listFlows[index];
-          return buildTransactionListTile(selectedElement);
-          /*Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                width: MediaQuery.of(context).size.width * 0.6,
-                height: MediaQuery.of(context).size.height * 0.1,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-                )),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      height: MediaQuery.of(context).size.width * 0.13,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Image(
-                        image: AssetImage("assets/images/Spotify.png"),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.width * 0.15,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            selectedElement.title_flow,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                            ),
-                          ),
-                          Text(
-                            selectedElement.convertDateTime(),
-                            style: TextStyle(color: Colors.grey, fontSize: 13),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                child: Text(
-                  selectedElement.value.toString(),
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold,
-                          letterSpacing: 3,
-                          //color: selectedElement.entrance ? Colors.green : Colors.redAccent
-                      ),
-                ),
-              ),
-            ],
-          );*/
-        },
-      ),
+      //height: MediaQuery.of(context).size.height * 1,
+      child: updateTransactions(),
     );
   }
+
+  ValueListenableBuilder<Box<MoneyFlow>> updateTransactions() => ValueListenableBuilder(
+      valueListenable: Boxes.getTransactions().listenable(),
+      builder: (cntx, box, _){
+        if(box.isEmpty)
+          return Center(
+            child: Text(
+              "No recent transactions",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 17,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          );
+        List<MoneyFlow> t=Boxes.getRecentTransactions(MAX_RECENT);
+        print(t.length);
+        return ListView.builder(
+          itemCount: t.length,
+          itemBuilder: (BuildContext context, index) {
+            MoneyFlow selectedElement = t.elementAt(index)!;
+            return Slidable(
+              key: const ValueKey(0),
+              endActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                children: [
+                  SlidableAction(
+                    onPressed: (context) => box.delete(selectedElement.id),
+                    backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete_outline,
+                    label: "Delete",
+                  ),
+                  SlidableAction(
+                    onPressed: null,
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    icon: Icons.edit_outlined,
+                    label: "Edit",
+                  )
+                ],
+              ),
+              child: buildTransactionListTile(selectedElement),
+            );
+          },
+        );
+      }
+  );
 
 
   Widget buildTransactionListTile(MoneyFlow moneyFlow) => ListTile(
@@ -119,7 +104,9 @@ class _ViewFlowsState extends State<ViewFlows> {
         ),
       ],
     ),
-    tileColor: Colors.green,
-    selectedTileColor: Colors.red,
   );
+
+  void deleteTransaction(Box b, MoneyFlow m){
+      b.delete(m);
+  }
 }

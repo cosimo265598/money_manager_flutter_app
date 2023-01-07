@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../boxes.dart';
+import '../models/user.dart';
 
 class CreditCard extends StatefulWidget {
   const CreditCard({super.key});
@@ -52,15 +56,7 @@ class _CreditCardState extends State<CreditCard> {
                       color: Colors.black87,
                       size: 45,
                     ),
-                    Text(
-                      '\t\tBank Account',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 28,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
+                    updateUserDataBankName(),
                   ],
                 ),
               ),
@@ -93,11 +89,8 @@ class _CreditCardState extends State<CreditCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                          child: Text(
-                            "Manisi Cosimo",
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
-                          ),
+                          padding: EdgeInsetsDirectional.fromSTEB(30, 10, 0, 0),
+                          child: updateUserDataUserName(),
                         ),
                         Image.asset(
                           'assets/images/cc.png',
@@ -116,4 +109,31 @@ class _CreditCardState extends State<CreditCard> {
       ),
     );
   }
+
+
+  ValueListenableBuilder<Box<User>> updateUserDataBankName() => ValueListenableBuilder(
+      valueListenable: Boxes.getConfigUser().listenable(),
+      builder: (cntx, box, _){
+        return Text(
+          "\t\t${Boxes.getConfigUserLocal()!.bank_name}",
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            overflow: TextOverflow.ellipsis,
+              fontFamily: "DongleRegular",
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+        );
+      }
+  );
+  ValueListenableBuilder<Box<User>> updateUserDataUserName() => ValueListenableBuilder(
+      valueListenable: Boxes.getConfigUser().listenable(),
+      builder: (cntx, box, _){
+        return Text(
+            "${Boxes.getConfigUserLocal()!.username}",
+          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),);
+      }
+  );
+
 }
