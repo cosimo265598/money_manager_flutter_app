@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:money_manger_app/models/moneyFlow.dart';
 
 import '../boxes.dart';
 import '../models/user.dart';
@@ -68,11 +69,7 @@ class _TopBarState extends State<TopBar> {
                   Icons.account_balance_rounded,
                   color: Colors.blue,
                 ),
-                Text(
-                  "1563,25",
-                  style: TextStyle(
-                      color: Colors.blue, fontSize: 24, letterSpacing: 1.3),
-                )
+                updateAmount(),
               ],
             ),
           ),
@@ -104,5 +101,14 @@ class _TopBarState extends State<TopBar> {
         );
       }
   );
-
+  ValueListenableBuilder<Box<MoneyFlow>> updateAmount() => ValueListenableBuilder(
+      valueListenable: Boxes.getTransactions().listenable(),
+      builder: (cntx, box, _){
+        return Text(
+          "${Boxes.getTotalAmountTransactions().toString()}",
+          style: TextStyle(
+              color: Colors.blue, fontSize: 24, letterSpacing: 1.3),
+        );
+      }
+  );
 }

@@ -51,7 +51,9 @@ class _ViewFlowsState extends State<ViewFlows> {
                 motion: const ScrollMotion(),
                 children: [
                   SlidableAction(
-                    onPressed: (context) => box.delete(selectedElement.id),
+                    onPressed: (context) =>
+                      box.delete(selectedElement.id),
+
                     backgroundColor: Colors.redAccent,
                     foregroundColor: Colors.white,
                     icon: Icons.delete_outline,
@@ -91,6 +93,11 @@ class _ViewFlowsState extends State<ViewFlows> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Icon(
+          moneyFlow.entrance?Icons.file_download_rounded :Icons.file_upload_rounded,
+          color: moneyFlow.entrance? Colors.green[300] :Colors.red[300],
+          size: 20,
+        ),
         Text(
           moneyFlow.value.toString(),
           style: TextStyle(
@@ -107,7 +114,4 @@ class _ViewFlowsState extends State<ViewFlows> {
     ),
   );
 
-  void deleteTransaction(Box b, MoneyFlow m){
-      b.delete(m);
-  }
 }

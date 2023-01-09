@@ -112,4 +112,19 @@ class Boxes {
     return t;
   }
 
+  static double getTotalAmountTransactions(){
+    try {
+      return getTransactions()
+          .values
+          .map((e) {
+        if (e.entrance)
+          return e.value;
+        return e.value * -1;
+      }).reduce((sum, element) => sum + element).truncateToDouble();
+    }
+    catch(e){
+      return 0;
+    }
+  }
+
 }

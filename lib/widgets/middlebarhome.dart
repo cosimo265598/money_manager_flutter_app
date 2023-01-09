@@ -53,7 +53,7 @@ class _MiddlebarHomeState extends State<MiddlebarHome> {
               Column(
                 children: [
                   Text(
-                    "Income",
+                    "Today income",
                     style: TextStyle(
                       fontFamily: "DongleRegular",
                       fontSize: 20,
@@ -64,9 +64,9 @@ class _MiddlebarHomeState extends State<MiddlebarHome> {
                     children: [
                       Icon(Icons.euro_symbol_rounded,size: 30,),
                       Text(
-                        "${d[0].truncateToDouble()}",
+                        "${d[0].truncateToDouble()}", overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
+
                           fontFamily: "DongleRegular",
                           fontSize: 20,
                           letterSpacing: 2,
@@ -86,7 +86,7 @@ class _MiddlebarHomeState extends State<MiddlebarHome> {
               Column(
                 children: [
                   Text(
-                    "Expense",
+                    "Today expense",
                     style: TextStyle(
                       fontFamily: "DongleRegular",
                       fontSize: 20,
@@ -97,9 +97,9 @@ class _MiddlebarHomeState extends State<MiddlebarHome> {
                     children: [
                       Icon(Icons.euro_symbol_rounded,size: 30,),
                       Text(
-                        "${d[1].truncateToDouble()}",
+                        "${d[1].truncateToDouble()}",overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
+
                           letterSpacing: 2,
                           fontFamily: "DongleRegular",
                           fontSize: 20,

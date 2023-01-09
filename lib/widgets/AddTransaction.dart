@@ -22,11 +22,16 @@ class _AddTransactionState extends State<AddTransaction> {
   final myControllerAmount = TextEditingController();
   final myControllerDescritpion = TextEditingController();
 
+  @override
+  void initState(){
+    myControllerAmount.text="0.0";
+    myControllerDescritpion.text="General";
+  }
   DateTime myControllerDate= DateTime.now();
   late Timer _timer;
 
 
-  bool income_expense = false;
+  bool income = false;
   Color selectedColor = Colors.amber;
   Color unselectedColor = Colors.blue[100]!;
   double unselectedSize= 30;
@@ -92,6 +97,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   ),
                 ),
                 keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
             ),
             Padding(
@@ -125,11 +131,11 @@ class _AddTransactionState extends State<AddTransaction> {
                     // This bool value toggles the switch.
                     inactiveThumbColor: Colors.green,
                     inactiveTrackColor: Colors.lightGreen,
-                    value: income_expense,
+                    value: income,
                     activeColor: Colors.red,
                     onChanged: (bool value) {
                       setState(() {
-                        income_expense = value;
+                        income = value;
                       });
                     },
                   ),
@@ -202,12 +208,13 @@ class _AddTransactionState extends State<AddTransaction> {
                                     Container(
                                       child: Text(
                                         getCategoriesAvailable()[l_cat.elementAt(index)].toString(),
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontWeight: index==selectedIndex ? FontWeight.bold : FontWeight.normal,
                                             fontFamily: "DongleRegular",
                                             fontSize: 20,
                                             color: Colors.grey.shade700,
-                                            overflow: TextOverflow.ellipsis),
+                                            ),
                                       ),
                                     )
                                   ],
@@ -255,13 +262,13 @@ class _AddTransactionState extends State<AddTransaction> {
       _timer = Timer(Duration(milliseconds: 500), () {
         Navigator.of(context).pop();
       });
-      print(myControllerDescritpion.text);
+      /*print(myControllerDescritpion.text);
       print(myControllerAmount.text);
       print(myControllerDate);
-      print(category_selected);
+      print(category_selected);*/
       String id=Uuid().v4();
-      Boxes.addTransactions(id, MoneyFlow(myControllerDescritpion.text, double.parse(myControllerAmount.text.toString()), myControllerDate, category_selected, income_expense, id));
-      return AlertConfigDone();
+      Boxes.addTransactions(id, MoneyFlow(myControllerDescritpion.text, double.parse(myControllerAmount.text.toString()), myControllerDate, category_selected, !income, id));
+      return AlertAddDone();
     },
   ).then((val) {
     if (_timer.isActive) {

@@ -22,7 +22,7 @@ Future<void> main() async {
   // generate transaction
   //Boxes.getTransactions().clear();
 
-  DateTime? start = DateTime.tryParse("2022-01-01 00:00:00");
+  /*DateTime? start = DateTime.tryParse("2022-01-01 00:00:00");
   for (int i=0; i< 15 ;i ++ )
   {
     int r=Random.secure().nextInt(365);
@@ -32,7 +32,7 @@ Future<void> main() async {
   }
   String id=Uuid().v4();
 
-  Boxes.addTransactions(id,MoneyFlow("i.toString()",10,DateTime.now(), "assets/images/categories/Shopee.png", true,id));
+  Boxes.addTransactions(id,MoneyFlow("i.toString()",10,DateTime.now(), "assets/images/categories/Shopee.png", true,id));*/
 
   runApp(const MyApp());
 }

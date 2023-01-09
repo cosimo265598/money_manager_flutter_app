@@ -114,15 +114,18 @@ class _CreditCardState extends State<CreditCard> {
   ValueListenableBuilder<Box<User>> updateUserDataBankName() => ValueListenableBuilder(
       valueListenable: Boxes.getConfigUser().listenable(),
       builder: (cntx, box, _){
-        return Text(
-          "\t\t${Boxes.getConfigUserLocal()!.bank_name}",
-          textAlign: TextAlign.start,
-          style: TextStyle(
-            overflow: TextOverflow.ellipsis,
-              fontFamily: "DongleRegular",
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
+        return Expanded(
+          child: Text(
+            "${Boxes.getConfigUserLocal()!.bank_name}",
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.fade,
+            softWrap: true,
+            maxLines: 2,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         );
       }

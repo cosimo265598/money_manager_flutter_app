@@ -50,9 +50,8 @@ class _OverallBalanceState extends State<OverallBalance> {
                             children: [
                               Icon(Icons.account_balance_rounded,size: 50,),
                               Text(
-                                "BANK ACCOUNT",
+                                "BANK ACCOUNT",overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  overflow: TextOverflow.ellipsis,
                                   fontFamily: "DongleRegular",
                                   fontSize: 30,
                                   letterSpacing: 2,
@@ -71,18 +70,18 @@ class _OverallBalanceState extends State<OverallBalance> {
                   Row(
                     children: [
                       Text(
-                        "Total balance: ",
+                        "Total balance: ",overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
+
                           fontFamily: "DongleRegular",
                           fontSize: 20,
                           letterSpacing: 2,
                         ),
                       ),
                       Text(
-                        "8750.36",
+                        "8750.36", overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
+
                           fontFamily: "DongleRegular",
                           fontSize: 20,
                           letterSpacing: 2,
