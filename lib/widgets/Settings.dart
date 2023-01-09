@@ -201,7 +201,7 @@ class _SettingsState extends State<Settings> {
             Navigator.of(context).pop();
           });
           saveSettings(myControllerUsername.text, myControllerBankName.text, items[selected_item]);
-          return AlertDone();
+          return AlertConfigDone();
         },
       ).then((val) {
         if (_timer.isActive) {

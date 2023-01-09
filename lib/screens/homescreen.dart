@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:money_manger_app/screens/StatScreen.dart';
-import 'package:money_manger_app/screens/historyscreen.dart';
 import 'package:money_manger_app/widgets/AddTransaction.dart';
 import 'package:money_manger_app/widgets/Settings.dart';
-import 'package:money_manger_app/widgets/Statistics.dart';
+
 import 'package:money_manger_app/widgets/Statisticspage.dart';
-import 'package:money_manger_app/widgets/addFlow.dart';
-import 'package:money_manger_app/widgets/bottombar.dart';
-import 'package:money_manger_app/widgets/card.dart';
+
 import 'package:money_manger_app/widgets/history.dart';
 import 'package:money_manger_app/widgets/home.dart';
-import 'package:money_manger_app/widgets/listStatistics.dart';
-import 'package:money_manger_app/widgets/middlebar.dart';
-import 'package:money_manger_app/widgets/movementsFlow.dart';
-import 'package:money_manger_app/widgets/pieCharts.dart';
-import 'package:money_manger_app/widgets/recentflow.dart';
+
 import 'package:money_manger_app/widgets/topbar.dart';
 
 class HomeScreen extends StatefulWidget {

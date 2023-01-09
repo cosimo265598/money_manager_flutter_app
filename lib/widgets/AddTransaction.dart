@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:money_manger_app/models/moneyFlow.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/category.dart';
+import 'AlertDone.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
@@ -21,6 +23,7 @@ class _AddTransactionState extends State<AddTransaction> {
   final myControllerDescritpion = TextEditingController();
 
   DateTime myControllerDate= DateTime.now();
+  late Timer _timer;
 
 
   bool income_expense = false;
@@ -231,7 +234,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 width: MediaQuery.of(context).size.height * 0.5,
                 height: MediaQuery.of(context).size.height * 0.07,
                 child: ElevatedButton(
-                  onPressed: () => saveDataTransaction(),
+                  onPressed: saveDataTransaction,
                   child: Text('Save' ,style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -246,12 +249,24 @@ class _AddTransactionState extends State<AddTransaction> {
     );
   }
 
-  void saveDataTransaction(){
-    print(myControllerDescritpion.text);
-    print(myControllerAmount.text);
-    print(myControllerDate);
-    print(category_selected);
-    String id=Uuid().v4();
-    Boxes.addTransactions(id, MoneyFlow(myControllerDescritpion.text, double.parse(myControllerAmount.text.toString()), myControllerDate, category_selected, income_expense, id));
-  }
+  void saveDataTransaction() => showDialog<String>(
+    context: context,
+    builder: (BuildContext context) {
+      _timer = Timer(Duration(milliseconds: 500), () {
+        Navigator.of(context).pop();
+      });
+      print(myControllerDescritpion.text);
+      print(myControllerAmount.text);
+      print(myControllerDate);
+      print(category_selected);
+      String id=Uuid().v4();
+      Boxes.addTransactions(id, MoneyFlow(myControllerDescritpion.text, double.parse(myControllerAmount.text.toString()), myControllerDate, category_selected, income_expense, id));
+      return AlertConfigDone();
+    },
+  ).then((val) {
+    if (_timer.isActive) {
+      _timer.cancel();
+    }
+  });
+
 }

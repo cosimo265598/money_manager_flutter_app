@@ -59,7 +59,8 @@ class Boxes {
         .toList();
   }
 
-  static List<ChartData> getAmountGivenDate(DateTime d, String category) {
+  static List<ChartData> getAmountGivenDateRadial(String period, String category) {
+    DateTime d = subDateGivenDateFineGrane(DateTime.now(),period);
     List<ChartData> t=[];
     try {
       t.add(ChartData("Income", getTransactions()
@@ -85,4 +86,30 @@ class Boxes {
     }
     return t;
   }
+  static List<ChartData> getAmountGivenDateStaked(String period) {
+    DateTime d = subDateGivenDateFineGrane(DateTime.now(),period);
+    List<ChartData> t=[];
+    try {
+      t.add(ChartData("Income", getTransactions()
+          .values
+          .where((element) => element.dateTime.isAfter(d))
+          .where((element) => element.entrance == true)
+          .map((e) => e.value).reduce((sum, element) => sum + element).truncateToDouble(), 0
+      ));
+    }catch(e){
+      t.add(ChartData("Income",0,0 ));
+    }
+    try {
+      t.add(ChartData("Expense", getTransactions()
+          .values
+          .where((element) => element.dateTime.isAfter(d))
+          .where((element) => element.entrance == false)
+          .map((e) => e.value).reduce((sum, element) => sum + element).truncateToDouble(), 0
+      ));
+    }catch(e){
+      t.add(ChartData("Expense",0,0 ));
+    }
+    return t;
+  }
+
 }

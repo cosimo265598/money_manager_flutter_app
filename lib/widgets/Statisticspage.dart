@@ -24,20 +24,16 @@ class _StatisticspageState extends State<Statisticspage> {
   List<String> periods = [
     "Today",
     "Yesterday",
-    "Last week",
-    "Last month",
-    "Last 3 month",
-    "Last 6 month",
-    "Last year",
-    "All",
+    "Last Week",
+    "Last Month",
+    "Last 3 Month",
+    "Last 6 Month",
+    "Last Year",
   ];
   String selected_item = "Today";
   List<String> cat_items = getCategoriesAvailable().keys.toList();
 
-  final List<ChartData> chartDataCategories = [
-    ChartData('Income', 12, 10,),
-    ChartData('Expense', 14, 11, ),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,14 +98,12 @@ class _StatisticspageState extends State<Statisticspage> {
                     onChanged: (String? value) {
                       setState(() {
                         selected_item = value!;
-                        print(selected_item);
                       });
-                      print(selected_item);
                     },
                   ),
                 ],
               ),
-              StackedChart(),
+              StackedChart(period_selection: selected_item),
               Container(
                 width: double.infinity,
                 //height: MediaQuery.of(context).size.height *0.1,
@@ -182,7 +176,7 @@ class _StatisticspageState extends State<Statisticspage> {
   Widget buildGridCat(String pathImage) => Padding(
         padding: const EdgeInsets.all(2),
         child: Container(
-          //clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             //shape: BoxShape.rectangle,
             image: DecorationImage(
@@ -200,7 +194,7 @@ class _StatisticspageState extends State<Statisticspage> {
           child: SfCircularChart(
             series: <CircularSeries>[
               RadialBarSeries<ChartData, String>(
-                dataSource: Boxes.getAmountGivenDate(subDateGivenDateFineGrane(DateTime.now(),selected_item), pathImage),
+                dataSource: Boxes.getAmountGivenDateRadial(selected_item, pathImage),
                 dataLabelSettings: DataLabelSettings(
                   overflowMode: OverflowMode.shift,
                     isVisible: true,

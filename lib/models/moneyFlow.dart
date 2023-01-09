@@ -48,6 +48,7 @@ final MoneyFlow test4 = MoneyFlow("prova4", 3.0, DateTime.now(), "Pranzo", true,
 List<MoneyFlow> listFlows = generateRandomData(DateTime.tryParse("2022-01-01 13:27:00")!);
 
 DateTime subDateGivenDateFineGrane(DateTime date, String period) {
+  print(period);
   Map<String, DateTime> periods = {
     "Today": DateTime(date.year, date.month, date.day),
     "Yesterday": DateTime(date.year, date.month, date.day).subtract(Duration(days: 1)),

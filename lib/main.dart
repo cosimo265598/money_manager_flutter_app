@@ -32,7 +32,7 @@ Future<void> main() async {
   }
   String id=Uuid().v4();
 
-  Boxes.addTransactions(id,MoneyFlow("i.toString()",10,DateTime.now(), "assets/images/categories/Shopee.png", false,id));
+  Boxes.addTransactions(id,MoneyFlow("i.toString()",10,DateTime.now(), "assets/images/categories/Shopee.png", true,id));
 
   runApp(const MyApp());
 }
