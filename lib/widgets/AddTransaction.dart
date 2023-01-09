@@ -1,5 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:money_manger_app/boxes.dart';
+import 'package:money_manger_app/models/category.dart';
+import 'package:money_manger_app/models/moneyFlow.dart';
+import 'package:uuid/uuid.dart';
+
+import '../models/category.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
@@ -9,29 +17,20 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
-  List<String> items = [
-    "assets/images/categories/Netflix.png",
-    "assets/images/categories/Shopee.png",
-    "assets/images/categories/Spotify.png",
-    "assets/images/categories/Netflix.png",
-    "assets/images/categories/Shopee.png",
-    "assets/images/categories/Spotify.png",
-    "assets/images/categories/Netflix.png",
-    "assets/images/categories/Shopee.png",
-    "assets/images/categories/Spotify.png"
-  ];
-  Map<String, String> itemsMap = {
-    "assets/images/categories/Netflix.png": "Netflix",
-    "assets/images/categories/Shopee.png": "Shoppee",
-    "assets/images/categories/Spotify.png": "Spotify",
-  };
-  String selected_item = "Netflix";
+  final myControllerAmount = TextEditingController();
+  final myControllerDescritpion = TextEditingController();
+
+  DateTime myControllerDate= DateTime.now();
+
+
   bool income_expense = false;
   Color selectedColor = Colors.amber;
   Color unselectedColor = Colors.blue[100]!;
   double unselectedSize= 30;
   double selectedSize= 50;
   int selectedIndex = 0;
+  List<String> l_cat=getCategoriesAvailable().keys.toList();
+  String category_selected = getCategoriesAvailable().keys.toList().first;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +71,7 @@ class _AddTransactionState extends State<AddTransaction> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70),
               child: TextFormField(
+                controller: myControllerAmount,
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
@@ -96,6 +96,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 horizontal: 8,
               ),
               child: TextFormField(
+                controller: myControllerDescritpion,
                 style: TextStyle(
                   fontFamily: "DongleRegular",
                   fontSize: 18,
@@ -104,7 +105,6 @@ class _AddTransactionState extends State<AddTransaction> {
                   labelStyle: TextStyle(fontWeight: FontWeight.w500),
                   border: UnderlineInputBorder(),
                   labelText: 'Description',
-
                 ),
               ),
             ),
@@ -165,7 +165,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         mainAxisSpacing: 16,
                       ),*/
                       scrollDirection: Axis.horizontal,
-                      itemCount: items.length,
+                      itemCount: l_cat.length,
                       itemBuilder: (BuildContext ctx, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -182,6 +182,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                 onTap: () {
                                   setState(() {
                                     selectedIndex = index;
+                                    category_selected = l_cat.elementAt(selectedIndex);
                                   });
                                 },
                                 child: Column(
@@ -189,7 +190,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                   children: [
                                     Container(
                                       child: CircleAvatar(
-                                        backgroundImage: AssetImage(items[index]),
+                                        backgroundImage: AssetImage(l_cat.elementAt(index)),
                                         radius: index==selectedIndex ? 30:20,
                                         foregroundColor: Colors.transparent,
                                         //width: MediaQuery.of(context).size.width * (index==selectedIndex ? 0.13 : 0.1),
@@ -197,7 +198,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                     ),
                                     Container(
                                       child: Text(
-                                        itemsMap[items[index]].toString(),
+                                        getCategoriesAvailable()[l_cat.elementAt(index)].toString(),
                                         style: TextStyle(
                                           fontWeight: index==selectedIndex ? FontWeight.bold : FontWeight.normal,
                                             fontFamily: "DongleRegular",
@@ -220,8 +221,8 @@ class _AddTransactionState extends State<AddTransaction> {
                       initialDate: DateTime.now(),
                       firstDate: DateTime.utc(1970),
                       lastDate: DateTime.now(),
-                      onDateChanged: (DateTime t) {
-                        print(t);
+                      onDateChanged: (DateTime other) {
+                        myControllerDate=other;
                       })),
             ),
             Padding(
@@ -230,7 +231,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 width: MediaQuery.of(context).size.height * 0.5,
                 height: MediaQuery.of(context).size.height * 0.07,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => saveDataTransaction(),
                   child: Text('Save' ,style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -243,5 +244,14 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
       ),
     );
+  }
+
+  void saveDataTransaction(){
+    print(myControllerDescritpion.text);
+    print(myControllerAmount.text);
+    print(myControllerDate);
+    print(category_selected);
+    String id=Uuid().v4();
+    Boxes.addTransactions(id, MoneyFlow(myControllerDescritpion.text, double.parse(myControllerAmount.text.toString()), myControllerDate, category_selected, income_expense, id));
   }
 }

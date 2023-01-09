@@ -44,6 +44,7 @@ class _ViewFlowsState extends State<ViewFlows> {
           itemCount: t.length,
           itemBuilder: (BuildContext context, index) {
             MoneyFlow selectedElement = t.elementAt(index)!;
+            print(selectedElement.category);
             return Slidable(
               key: const ValueKey(0),
               endActionPane: ActionPane(
@@ -85,7 +86,7 @@ class _ViewFlowsState extends State<ViewFlows> {
     subtitle: Text(moneyFlow.convertDateTime()),
     leading: CircleAvatar(
         radius: 30,
-        backgroundImage: AssetImage("assets/images/Spotify.png"),backgroundColor: Colors.transparent,),
+        backgroundImage: AssetImage(moneyFlow.category),backgroundColor: Colors.transparent,),
     trailing: Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,

@@ -163,7 +163,7 @@ class _AllFlowsState extends State<AllFlows> {
             ),
             CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage("assets/images/Spotify.png"),
+              backgroundImage: AssetImage(moneyFlow.category),
               backgroundColor: Colors.transparent,
             ),
           ],

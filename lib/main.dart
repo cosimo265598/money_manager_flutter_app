@@ -27,12 +27,12 @@ Future<void> main() async {
   {
     int r=Random.secure().nextInt(365);
     String id=Uuid().v4();
-    Boxes.addTransactions(id,MoneyFlow(i.toString(),r.toDouble(),start!.add(Duration(days: r)), "Pranzo", false, id));
+    Boxes.addTransactions(id,MoneyFlow(i.toString(),r.toDouble(),start!.add(Duration(days: r)), "assets/images/categories/Shopee.png", false, id));
     print("Added: ${start!.add(Duration(days: r))}");
   }
   String id=Uuid().v4();
 
-  Boxes.addTransactions(id,MoneyFlow("i.toString()",10,DateTime.now(), "Pranzo", false,id));
+  Boxes.addTransactions(id,MoneyFlow("i.toString()",10,DateTime.now(), "assets/images/categories/Shopee.png", false,id));
 
   runApp(const MyApp());
 }

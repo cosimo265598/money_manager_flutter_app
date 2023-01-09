@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../models/ChartData.dart';
+
 class StackedChart extends StatefulWidget {
   const StackedChart({super.key});
 
@@ -8,23 +10,13 @@ class StackedChart extends StatefulWidget {
   State<StackedChart> createState() => _StackedChartState();
 }
 
-class ChartData{
-
-  final String x;
-  final double y1;
-  final double y2;
-  final double y3;
-  final double y4;
-  ChartData(this.x, this.y1, this.y2, this.y3, this.y4);
-}
-
 class _StackedChartState extends State<StackedChart> {
 
   final List<ChartData> chartData = [
-    ChartData('Gennaio', 12, 10, 14, 20),
-    ChartData('Febbraio', 14, 11, 18, 23),
-    ChartData('Marzo', 16, 10, 15, 20),
-    ChartData('Aprile', 18, 16, 18, 24)
+    ChartData('Gennaio', 12, 10, ),
+    ChartData('Febbraio', 14, 11,),
+    ChartData('Marzo', 16, 10, ),
+    ChartData('Aprile', 18, 16,)
   ];
 
   @override

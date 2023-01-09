@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:money_manger_app/boxes.dart';
+import 'package:money_manger_app/models/category.dart';
 import 'package:money_manger_app/widgets/StackedColumns.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../models/ChartData.dart';
+import '../models/moneyFlow.dart';
 
 class Statisticspage extends StatefulWidget {
   const Statisticspage({super.key});
@@ -9,6 +14,7 @@ class Statisticspage extends StatefulWidget {
   @override
   State<Statisticspage> createState() => _StatisticspageState();
 }
+
 
 class _StatisticspageState extends State<Statisticspage> {
   @override
@@ -26,22 +32,13 @@ class _StatisticspageState extends State<Statisticspage> {
     "All",
   ];
   String selected_item = "Today";
-  List<String> cat_items = [
-    "assets/images/categories/Netflix.png",
-    "assets/images/categories/Shopee.png",
-    "assets/images/categories/Spotify.png",
-    "assets/images/categories/Netflix.png",
-    "assets/images/categories/Shopee.png",
-    "assets/images/categories/Spotify.png",
-    "assets/images/categories/Netflix.png",
-    "assets/images/categories/Shopee.png",
-    "assets/images/categories/Spotify.png"
-  ];
+  List<String> cat_items = getCategoriesAvailable().keys.toList();
 
   final List<ChartData> chartDataCategories = [
-    ChartData('Icome', 12, 10, 14, 20),
-    ChartData('Expense', 14, 11, 18, 23),
+    ChartData('Income', 12, 10,),
+    ChartData('Expense', 14, 11, ),
   ];
+
   @override
   Widget build(BuildContext context) {
     BorderRadiusGeometry radius = BorderRadius.only(
@@ -203,7 +200,7 @@ class _StatisticspageState extends State<Statisticspage> {
           child: SfCircularChart(
             series: <CircularSeries>[
               RadialBarSeries<ChartData, String>(
-                dataSource: chartDataCategories,
+                dataSource: Boxes.getAmountGivenDate(subDateGivenDateFineGrane(DateTime.now(),selected_item), pathImage),
                 dataLabelSettings: DataLabelSettings(
                   overflowMode: OverflowMode.shift,
                     isVisible: true,

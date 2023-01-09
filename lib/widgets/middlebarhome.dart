@@ -64,7 +64,7 @@ class _MiddlebarHomeState extends State<MiddlebarHome> {
                     children: [
                       Icon(Icons.euro_symbol_rounded,size: 30,),
                       Text(
-                        "${d[0]}",
+                        "${d[0].truncateToDouble()}",
                         style: TextStyle(
                           overflow: TextOverflow.ellipsis,
                           fontFamily: "DongleRegular",
@@ -97,7 +97,7 @@ class _MiddlebarHomeState extends State<MiddlebarHome> {
                     children: [
                       Icon(Icons.euro_symbol_rounded,size: 30,),
                       Text(
-                        "${d[1]}",
+                        "${d[1].truncateToDouble()}",
                         style: TextStyle(
                           overflow: TextOverflow.ellipsis,
                           letterSpacing: 2,
