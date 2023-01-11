@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:money_manger_app/boxes.dart';
-import 'package:money_manger_app/models/category.dart';
+import 'package:money_manger_app/models/utils.dart';
 import 'package:money_manger_app/widgets/StackedColumns.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 

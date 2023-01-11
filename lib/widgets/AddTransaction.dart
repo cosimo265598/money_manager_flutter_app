@@ -1,14 +1,13 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:money_manger_app/boxes.dart';
-import 'package:money_manger_app/models/category.dart';
+import 'package:money_manger_app/models/utils.dart';
 import 'package:money_manger_app/models/moneyFlow.dart';
 import 'package:uuid/uuid.dart';
 
-import '../models/category.dart';
+import '../models/utils.dart';
 import 'AlertDone.dart';
 
 class AddTransaction extends StatefulWidget {
